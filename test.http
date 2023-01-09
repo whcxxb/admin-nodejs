@@ -11,6 +11,10 @@ POST {{url}}/register
 {{json}}
 
 {
-  "username":"user1",
+  "username":"user11",
   "password":"123"
 }
+
+### 获取所有用户
+GET {{url}}/userlist
+{{json}}
