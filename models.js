@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema({
   createTime: {
     type: Date,
     default: Date.now()
+  },
+  isEnable: {
+    type: Boolean,
+    default: true
   }
 })
 const User = mongoose.model('User', UserSchema)
