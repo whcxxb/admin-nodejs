@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', true)
 mongoose
-  .connect('mongodb://127.0.0.1:27017/expree-auth', {
+  .connect('mongodb://101.42.17.104:27017/expree-auth', {
     useNewUrlParser: true
   })
   .then(() => {
@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String
+  },
+  createTime: {
+    type: Date,
+    default: Date.now()
   }
 })
 const User = mongoose.model('User', UserSchema)

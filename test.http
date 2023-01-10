@@ -11,10 +11,26 @@ POST {{url}}/register
 {{json}}
 
 {
-  "username":"user11",
+  "username":"admin1",
   "password":"123"
 }
 
 ### 获取所有用户
 GET {{url}}/userlist
 {{json}}
+
+### 登录
+POST {{url}}/login
+{{json}}
+
+{
+  "username":"admin1",
+  "password":"123"
+}
+
+### 获取用户信息 携带touken
+GET {{url}}/userinfo
+{{json}}
+
+
+### 修改用户信息
