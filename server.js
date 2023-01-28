@@ -88,7 +88,11 @@ app.post('/api/login', (req, res) => {
         res.send({
           code: 0,
           success: true,
-          token: tokenStr,
+          data: {
+            username,
+            tokenStr
+          },
+          // token: tokenStr,
           msg: '登录成功'
         })
       } else {
@@ -128,7 +132,33 @@ app.get('/api/userinfo', (req, res) => {
 // 获取所有用户名
 app.get('/api/userlist', async (req, res) => {
   const userlist = await User.find()
-  res.send(userlist)
+  res.send({
+    code: 0,
+    success: true,
+    data: userlist
+  })
+})
+
+// 更新用户状态
+app.post('/api/updatestatus', async (req, res) => {
+  const { _id, isEnable } = req.body
+  // let status = isEnable === 'true' ? true : false
+  // console.log(_id, isEnable)
+  User.updateOne({ _id }, { isEnable }, (err, data) => {
+    if (err) {
+      res.send({
+        code: 1,
+        success: false,
+        msg: '更新失败'
+      })
+    } else {
+      res.send({
+        code: 0,
+        success: true,
+        msg: '更新状态成功'
+      })
+    }
+  })
 })
 
 // 错误中间件
