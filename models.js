@@ -11,7 +11,7 @@ mongoose
     console.log('数据库连接失败')
   })
 
-// 定义user模型
+// user schema
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -35,8 +35,42 @@ const UserSchema = new mongoose.Schema({
     default: true
   }
 })
+// Picture schema
+const PictureSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
+    required: true
+  }
+})
+// Article schema
+const ArticleSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
+  },
+  imgArr: {
+    type: Array,
+    default: [],
+    required: false
+  },
+  createTime: {
+    type: Date,
+    default: Date.now()
+  }
+})
 const User = mongoose.model('User', UserSchema)
-
+const Picture = mongoose.model('Picture', PictureSchema)
+const Article = mongoose.model('Article', ArticleSchema)
 module.exports = {
-  User
+  User,
+  Picture,
+  Article
 }

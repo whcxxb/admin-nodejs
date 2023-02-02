@@ -40,5 +40,5 @@ POST {{url}}/updatestatus
 
 {
   "_id":"63d4de977b277255cca02f00",
-  "isEnable":false
+  "isEnable":true
 }
