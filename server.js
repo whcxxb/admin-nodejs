@@ -1,5 +1,6 @@
 const express = require('express')
 const { User } = require('./models')
+const multer = require('multer')
 const app = express()
 const cors = require('cors')
 app.use(cors())
@@ -30,17 +31,48 @@ const bcrypt = require('bcryptjs')
 const secretKey = 'itcast'
 
 // 验证token是否过期并规定哪些路由不用验证
-app.use(
-  expressJWT({ secret: secretKey, algorithms: ['HS256'] }).unless({
-    path: ['/api/login', '/api/register', '/api/userlist']
-  })
-)
+
 
 // 生成token
 const addToken = (username) => {
   const token = jwt.sign({ username }, secretKey, { expiresIn: '2h' })
   return token
 }
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './static/img')
+  },
+  filename: function (req, file, cb) {
+    let str = file.originalname.split('.')
+    cb(null, Date.now() + '.' + str[1])
+  }
+})
+const upload = multer({ storage: storage })
+
+// 上传图片
+app.post('/api/upload', upload.single('file'), (req, res) => {
+  const { filename } = req.file
+  if (filename) {
+    res.send({
+      code: 0,
+      success: true,
+      msg: '上传成功',
+      data: {
+        imgUrl: `http://101.42.17.104:3000/static/img/${filename}`
+      }
+    })
+  } else {
+    res.send({
+      code: 1,
+      success: false,
+      msg: '上传失败'
+    })
+  }
+})
+// 读取图片文件
+app.use('/static', express.static('static'))
+
 
 // 注册
 app.post('/api/register', async (req, res) => {
