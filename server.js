@@ -31,8 +31,12 @@ const bcrypt = require('bcryptjs')
 const secretKey = 'itcast'
 
 // 验证token是否过期并规定哪些路由不用验证
-
-
+app.use(
+  expressJWT({ secret: secretKey, algorithms: ['HS256'] }).unless({
+    method: ['GET', 'POST', 'PUT', 'DELETE'],
+    path: ['/api/login', '/api/register', '/api/userlist', '/api/upload', '/static/img', '/static/img/:filename']
+  })
+)
 // 生成token
 const addToken = (username) => {
   const token = jwt.sign({ username }, secretKey, { expiresIn: '2h' })
@@ -71,8 +75,11 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   }
 })
 // 读取图片文件
-app.use('/static', express.static('static'))
-
+// app.use('/static', express.static('static'))
+app.get('/static/img/:filename', (req, res) => {
+  const { filename } = req.params
+  res.sendFile(__dirname + '/static/img/' + filename)
+})
 
 // 注册
 app.post('/api/register', async (req, res) => {
