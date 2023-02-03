@@ -33,13 +33,13 @@ const secretKey = 'itcast'
 // 验证token是否过期并规定哪些路由不用验证
 app.use(
   expressJWT({ secret: secretKey, algorithms: ['HS256'] }).unless({
-    method: ['GET', 'POST', 'PUT', 'DELETE'],
-    path: ['/api/login', '/api/register', '/api/userlist', '/api/upload', '/static/img', '/static/img/:filename']
+    // method: ['GET', 'POST', 'PUT', 'DELETE'],
+    path: ['/api/login', '/api/register', '/api/upload', /^\/static\//]
   })
 )
 // 生成token
 const addToken = (username) => {
-  const token = jwt.sign({ username }, secretKey, { expiresIn: '2h' })
+  const token = jwt.sign({ username }, secretKey, { expiresIn: '1m' })
   return token
 }
 

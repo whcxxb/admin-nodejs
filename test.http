@@ -1,5 +1,5 @@
 @url = http://127.0.0.1:3000/api
-@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc0ODkxOTY3LCJleHAiOjE2NzQ4OTkxNjd9.0GKkdzhg60ZMZcH-2QTKAK7dsX0jd1peazYeTk-OwDc
+@token= eyJhbGciO3434zI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjc0ODkxOTY3LCJleHAiOjE2NzQ4OTkxNjd9.0GKkdzhg60ZMZcH-2QTKAK7dsX0jd1peazYeTk-OwDc
 @json = Content-Type: application/json
 @Authorization = Authorization: Bearer {{token}}
 ###
@@ -31,6 +31,7 @@ POST {{url}}/login
 ### 获取用户信息
 GET {{url}}/userinfo
 {{json}}
+{{Authorization}}
 
 
 ### 修改用户状态
@@ -39,6 +40,6 @@ POST {{url}}/updatestatus
 {{Authorization}}
 
 {
-  "_id":"63d4de977b277255cca02f00",
-  "isEnable":true
+  "_id":"63dcabe64f8021704a63cdce",
+  "isEnable":false
 }

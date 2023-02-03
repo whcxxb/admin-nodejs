@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', true)
 mongoose
-  .connect('mongodb://101.42.17.104:27017/expree-auth', {
+  .connect('mongodb://admin:Wxb7808@101.42.17.104:27017/expree-auth', {
     useNewUrlParser: true
   })
-  .then(() => {
+  .then((res) => {
     console.log('数据库连接成功')
   })
   .catch((err) => {
-    console.log('数据库连接失败')
+    console.log(err)
   })
 
 // user schema
