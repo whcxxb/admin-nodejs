@@ -39,7 +39,7 @@ app.use(
 )
 // 生成token
 const addToken = (username) => {
-  const token = jwt.sign({ username }, secretKey, { expiresIn: '1m' })
+  const token = jwt.sign({ username }, secretKey, { expiresIn: '2h' })
   return token
 }
 
