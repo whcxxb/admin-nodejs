@@ -1,5 +1,5 @@
 const express = require('express')
-const { User } = require('./models')
+const { User, Article } = require('./models')
 const multer = require('multer')
 const app = express()
 const cors = require('cors')
@@ -81,6 +81,29 @@ app.get('/static/img/:filename', (req, res) => {
   res.sendFile(__dirname + '/static/img/' + filename)
 })
 
+// 新增文章
+app.post('/api/aaArticle', (req, res) => {
+  const { title, content, imgUrl } = req.body
+  if (title && content) {
+    Article.create({
+      title,
+      content,
+      imgUrl
+    })
+    res.send({
+      code: 0,
+      success: true,
+      msg: '新增成功'
+    })
+  } else {
+    res.send({
+      code: 1,
+      success: false,
+      msg: '缺少必要的参数'
+    })
+  }
+})
+// 获取文章列表
 // 注册
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body
