@@ -131,7 +131,25 @@ app.put('/api/editArticle/:id', (req, res) => {
     })
   }
 })
-// 获取文章列表
+// 获取所有文章列表
+app.get('/api/articleList', async (req, res) => {
+  const { page, size } = req.query
+  const total = await Article.countDocuments()
+  const list = await Article.find()
+    .skip((page - 1) * size)
+    .limit(Number(size))
+    .sort({ createTime: -1 })
+  res.send({
+    code: 0,
+    success: true,
+    msg: '获取成功',
+    data: {
+      list,
+      total
+    }
+  })
+})
+// 删除文章
 // 注册
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body
