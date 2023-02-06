@@ -104,9 +104,8 @@ app.post('/api/aadArticle', (req, res) => {
   }
 })
 // 修改文章
-app.put('/api/editArticle/:id', (req, res) => {
-  const { id } = req.params
-  const { title, content, img } = req.body
+app.post('/api/editArticle/', (req, res) => {
+  const { id, title, content, img } = req.body
   if (title && content) {
     Article.updateOne({ _id: id }, { title, content, imgArr: img }, (err, data) => {
       if (err) {
