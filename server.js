@@ -82,18 +82,46 @@ app.get('/static/img/:filename', (req, res) => {
 })
 
 // 新增文章
-app.post('/api/aaArticle', (req, res) => {
-  const { title, content, imgUrl } = req.body
+app.post('/api/aadArticle', (req, res) => {
+  const { title, content, img } = req.body
   if (title && content) {
     Article.create({
       title,
       content,
-      imgUrl
+      imgArr: img
     })
     res.send({
       code: 0,
       success: true,
       msg: '新增成功'
+    })
+  } else {
+    res.send({
+      code: 1,
+      success: false,
+      msg: '缺少必要的参数'
+    })
+  }
+})
+// 修改文章
+app.put('/api/editArticle/:id', (req, res) => {
+  const { id } = req.params
+  const { title, content, img } = req.body
+  if (title && content) {
+    Article.updateOne({ _id: id }, { title, content, imgArr: img }, (err, data) => {
+      if (err) {
+        res.send({
+          code: 1,
+          success: false,
+          msg: '修改失败'
+        })
+      } else {
+        res.send({
+          code: 0,
+          success: true,
+          msg: '修改成功'
+        })
+      }
     })
   } else {
     res.send({
