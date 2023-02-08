@@ -88,7 +88,8 @@ app.post('/api/aadArticle', (req, res) => {
     Article.create({
       title,
       content,
-      imgArr: img
+      imgArr: img,
+      createTime: Date.now()
     })
     res.send({
       code: 0,
