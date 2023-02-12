@@ -33,8 +33,8 @@ const secretKey = 'itcast'
 // 验证token是否过期并规定哪些路由不用验证
 app.use(
   expressJWT({ secret: secretKey, algorithms: ['HS256'] }).unless({
-    // method: ['GET', 'POST', 'PUT', 'DELETE'],
-    path: ['/api/login', '/api/register', '/api/upload', /^\/static\//]
+    // method: ['GET', 'POST', 'PUT', 'DELETE']
+    path: ['/api/login', '/api/register', '/api/upload', '/api/articleList', /^\/api\/articleDetail\//, /^\/static\//]
   })
 )
 // 生成token
@@ -146,6 +146,26 @@ app.get('/api/articleList', async (req, res) => {
     data: {
       list,
       total
+    }
+  })
+})
+// 通过id获取文章详情
+app.get('/api/articleDetail/:id', async (req, res) => {
+  const { id } = req.params
+  Article.findOne({ _id: id }, (err, data) => {
+    if (err) {
+      res.send({
+        code: 1,
+        success: false,
+        msg: '获取失败'
+      })
+    } else {
+      res.send({
+        code: 0,
+        success: true,
+        msg: '获取成功',
+        data
+      })
     }
   })
 })
@@ -281,6 +301,6 @@ app.use((err, req, res, next) => {
   next()
 })
 
-app.listen('3000', (req, res) => {
-  console.log('Server is running on port 3000')
+app.listen('3100', (req, res) => {
+  console.log('Server is running on port 3100')
 })
