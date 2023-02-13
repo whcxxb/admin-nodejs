@@ -1,7 +1,9 @@
+const config = require('./config')
+const url = `mongodb://${config.username}:${config.password}@${config.dbUrl}:${config.port}/${config.dbName}`
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', true)
 mongoose
-  .connect('mongodb://admin:Wxb7808@101.42.17.104:27017/expree-auth', {
+  .connect(url, {
     useNewUrlParser: true
   })
   .then((res) => {
