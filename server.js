@@ -63,7 +63,7 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
       success: true,
       msg: '上传成功',
       data: {
-        imgUrl: `http://101.42.17.104:3000/static/img/${filename}`
+        imgUrl: `/static/img/${filename}`
       }
     })
   } else {
